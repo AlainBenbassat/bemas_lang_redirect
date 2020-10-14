@@ -1,0 +1,33 @@
+<?php
+
+function bemas_lang_redirect_init() {
+  // see if we are on a civicrm page
+  if (strpos($_SERVER['REQUEST_URI'], '/civicrm/event/register') !== FALSE) {
+    // see if lcMessages is missing
+    if (stripos($_SERVER['REQUEST_URI'], 'lcMessages') === FALSE) {  
+      // add the language switch and redirect
+      $lang = '';
+
+      if (strpos($_SERVER['REQUEST_URI'], '/nl/civicrm/event/register') !== FALSE) {
+        $lang = 'nl_NL';
+        $langPrefix = 'nl';
+      }
+      elseif (strpos($_SERVER['REQUEST_URI'], '/fr/civicrm/event/register') !== FALSE) {
+        $lang = 'fr_FR';
+        $langPrefix = 'fr';
+      }
+      elseif (strpos($_SERVER['REQUEST_URI'], '/en/civicrm/event/register') !== FALSE) {
+        $lang = 'en_US';
+        $langPrefix = 'en';
+      }
+
+      if ($lang) {
+        $newURL = str_replace("/$langPrefix/", '', $_SERVER['REQUEST_URI']);
+
+        $separator = (strpos($_SERVER['REQUEST_URI'], '?') === FALSE && strpos($_SERVER['REQUEST_URI'], '%3F') === FALSE) ? '?' : '&';
+        $newURL .= $separator . "lcMessages=$lang";
+        drupal_goto($newURL);
+      }
+    }
+  }
+}

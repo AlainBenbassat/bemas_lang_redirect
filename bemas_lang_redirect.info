@@ -1,0 +1,9 @@
+; $Id$
+
+name = bemas_lang_redirect
+description = lcMessages toevoegen in de URL wanneer die ontbreekt bij civicrm pagina's
+package = BEMAS
+core = 7.x
+
+files[] = bemas_lang_redirect.module
+
