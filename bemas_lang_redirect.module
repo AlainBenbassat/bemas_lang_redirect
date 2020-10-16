@@ -3,6 +3,15 @@
 function bemas_lang_redirect_init() {
   // see if we are on a civicrm page
   if (strpos($_SERVER['REQUEST_URI'], '/civicrm/event/register') !== FALSE) {
+    // skip for confirmation and thank you screen
+    if (strpos($_SERVER['REQUEST_URI'], '_qf_Confirm_display') !== FALSE) {
+      return;
+    }
+
+    if (strpos($_SERVER['REQUEST_URI'], '_qf_ThankYou_display') !== FALSE) {
+      return;
+    }
+
     // see if lcMessages is missing
     if (stripos($_SERVER['REQUEST_URI'], 'lcMessages') === FALSE) {
       // add the language switch and redirect
@@ -10,15 +19,12 @@ function bemas_lang_redirect_init() {
 
       if (strpos($_SERVER['REQUEST_URI'], '/nl/civicrm/event/register') !== FALSE) {
         $lang = 'nl_NL';
-        $langPrefix = 'nl';
       }
       elseif (strpos($_SERVER['REQUEST_URI'], '/fr/civicrm/event/register') !== FALSE) {
         $lang = 'fr_FR';
-        $langPrefix = 'fr';
       }
       elseif (strpos($_SERVER['REQUEST_URI'], '/en/civicrm/event/register') !== FALSE) {
         $lang = 'en_US';
-        $langPrefix = 'en';
       }
 
       if ($lang) {
