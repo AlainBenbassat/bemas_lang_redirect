@@ -4,11 +4,7 @@ function bemas_lang_redirect_init() {
   // see if we are on a civicrm page
   if (strpos($_SERVER['REQUEST_URI'], '/civicrm/event/register') !== FALSE) {
     // skip for confirmation and thank you screen
-    if (strpos($_SERVER['REQUEST_URI'], '_qf_Confirm_display') !== FALSE) {
-      return;
-    }
-
-    if (strpos($_SERVER['REQUEST_URI'], '_qf_ThankYou_display') !== FALSE) {
+    if (array_key_exists('_qf_Confirm_display', $_GET) || array_key_exists('_qf_ThankYou_display', $_GET)) {
       return;
     }
 
